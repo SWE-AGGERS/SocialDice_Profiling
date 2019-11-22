@@ -1,8 +1,11 @@
-from database import Story, db, Reaction
-from sqlalchemy.sql import func
+from classes.Stories import Stories, Story
+from classes.User import User
+from classes.Utils import getUser, getStories
 
 
-class Stats:
+class Stats(dict):
+    user: User
+
     numStories: int
     likes: int
     dislikes: int
@@ -15,26 +18,22 @@ class Stats:
     ratio_likeDislike: float
     love_level: int
 
-    def __init__(self, user_id):
-        self.numStories = db.session.query(Story).filter(Story.author_id == user_id).count()
+    def __init__(self, id:int):
+        super().__init__()
+
+        self.user = getUser(id)
+
+        stories: Stories = getStories(id)
+
+        self.numStories = len(stories.storylist)
         if not self.numStories:
             self.numStories = 0
 
-        # q_likes = db.session.query(Story.likes).filter(Story.author_id == user_id)
-        q_likes = db.session.query(func.sum(Story.likes)).filter(Story.author_id == user_id)
-        self.likes = q_likes.first()[0]
-        if not self.likes:
-            self.likes = 0
-
-        q_dislikes = db.session.query(func.sum(Story.dislikes)).filter(Story.author_id == user_id)
-        self.dislikes = q_dislikes.first()[0]
-        if not self.dislikes:
-            self.dislikes = 0
-
-        q_numdice = db.session.query(func.sum(Story.dicenumber)).filter(Story.author_id == user_id)
-        self.numDice = q_numdice.first()[0]
-        if not self.numDice:
-            self.numDice = 0
+        for s in stories.storylist:
+            s: Story
+            self.likes += s.likes
+            self.dislikes += s.dislikes
+            self.numDice += s.dicenumber
 
         if self.numStories != 0:
             self.avgLike = round(self.likes/self.numStories, 2)
@@ -51,3 +50,20 @@ class Stats:
             self.ratio_likeDislike = 0
 
         self.love_level = self.likes - self.dislikes
+
+    def jsonify(self):
+        self['user'] = self.user.jsonify()
+
+        self['numStories'] = self.numStories
+        self['likes'] = self.likes
+        self['dislikes'] = self.dislikes
+        self['numDice'] = self.numDice
+
+        self['avgLike'] = self.avgLike
+        self['avgDislike'] = self.avgDislike
+        self['avgDice'] = self.avgDice
+
+        self['ratio_likeDislike'] = self.ratio_likeDislike
+        self['love_level'] = self.love_level
+
+        return self
