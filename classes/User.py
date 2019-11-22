@@ -7,7 +7,7 @@ class User(dict):
     firstname: str
     lastname: str
 
-    def __init__(self, jpayload: json):
+    def __init__(self, jpayload: bytes):
         super().__init__()
         if jpayload is None:
             self.id = 0
