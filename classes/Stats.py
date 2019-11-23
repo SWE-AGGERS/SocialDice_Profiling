@@ -42,7 +42,7 @@ class Stats(dict):
         if self.numStories != 0:
             self.avgLike = round(self.likes/self.numStories, 2)
             self.avgDislike = round(self.dislikes / self.numStories, 2)
-            self.avgDice = round(self.numDice / self.numStories,2)
+            self.avgDice = round(self.numDice / self.numStories, 2)
         else:
             self.avgLike = 0
             self.avgDislike = 0

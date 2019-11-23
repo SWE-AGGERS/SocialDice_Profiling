@@ -42,6 +42,9 @@ class Stories(dict):
     def __init__(self, jpayload: json):
         super().__init__()
         self.storylist = []
+        if jpayload is None:
+            return
+
         stories = json.loads(str(jpayload, 'utf8'))
 
         for s in stories['stories']:

@@ -1,3 +1,3 @@
-from .reactions import reacts
+from views.statistics import stats
 
-blueprints = [reacts]
+blueprints = [stats]

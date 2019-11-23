@@ -2,6 +2,12 @@ class UserException(Exception):
     def __init__(self):
         var = self.args
 
+
+class StoriesException(Exception):
+    def __init__(self):
+        var = self.args
+
+
 class NoUser(dict):
     def __init__(self):
         super().__init__()

@@ -1,6 +1,7 @@
 from celery import Celery
 from sqlalchemy.orm import scoped_session
 
+from classes.Errors import UserException
 from database import db, StatsTab
 from sqlalchemy import and_
 
@@ -21,31 +22,38 @@ def calc_stats_async(user_id):
     else:
         app = _APP
     with app.app_context():
-        Stats(user_id)
+        stats: Stats
 
-        q = db.session.query(StatsTab).filter(StatsTab.user_id == user_id)
+        try:
+            stats = Stats(user_id)
+        except UserException:
+            print('Try get Stats from unknown user wit id ' + str(user_id))
+            return
+
+        session = db.session
+
+        q = session.query(StatsTab).filter(StatsTab.user_id == user_id)
         stats_db = q.first()
 
         if not stats_db:
             stats_db = StatsTab()
-            stats_db.user_id = Stats.user.id
-            stats_db.email = Stats.user.email
-            stats_db.firstname = Stats.user.firstname
-            stats_db.lastname = Stats.user.lastname
-            # db.session.add(stats_db)
+            stats_db.user_id = stats.user.id
+            stats_db.email = stats.user.email
+            stats_db.firstname = stats.user.firstname
+            stats_db.lastname = stats.user.lastname
+            session.add(stats_db)
 
-        stats_db.numStories = Stats.numStories
-        stats_db.numDice = Stats.numDice
-        stats_db.likes = Stats.likes
-        stats_db.dislikes = Stats.dislikes
+        stats_db.numStories = stats.numStories
+        stats_db.numDice = stats.numDice
+        stats_db.likes = stats.likes
+        stats_db.dislikes = stats.dislikes
 
-        stats_db.avgLike = Stats.avgLike
-        stats_db.avgDislike = Stats.avgDislike
-        stats_db.avgDice = Stats.avgDice
+        stats_db.avgLike = stats.avgLike
+        stats_db.avgDislike = stats.avgDislike
+        stats_db.avgDice = stats.avgDice
 
-        stats_db.ratio_likeDislike = Stats.ratio_likeDislike
-        stats_db.love_level = Stats.love_level
+        stats_db.ratio_likeDislike = stats.ratio_likeDislike
+        stats_db.love_level = stats.love_level
 
         # db.session.add(stats_db)
-        # db.session.commit()
-        stats_db.save()
+        session.commit()

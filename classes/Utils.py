@@ -1,6 +1,6 @@
 import requests
 
-from classes.Errors import UserException
+from classes.Errors import UserException, StoriesException
 from classes.Stories import Stories
 from classes.User import User
 
@@ -12,7 +12,7 @@ ENDPOINT_STORIES = 'http://0.0.0.0:5001/stories/'
 def getStories(id:int):
     req = requests.get(url=ENDPOINT_STORIES+str(id))
     if req.status_code != 200:
-        return None
+        return Stories(None)
 
     stories: Stories = Stories(req.data)
 

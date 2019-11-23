@@ -2,3 +2,5 @@
 /.idea
 .gitignore
 cpy_*
+/redis-stable/
+*.db
