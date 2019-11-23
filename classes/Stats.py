@@ -18,7 +18,7 @@ class Stats(dict):
     ratio_likeDislike: float
     love_level: int
 
-    def __init__(self, id:int):
+    def __init__(self, id: int):
         super().__init__()
 
         self.user = getUser(id)
@@ -28,6 +28,10 @@ class Stats(dict):
         self.numStories = len(stories.storylist)
         if not self.numStories:
             self.numStories = 0
+
+        self.likes = 0
+        self.dislikes = 0
+        self.numDice = 0
 
         for s in stories.storylist:
             s: Story

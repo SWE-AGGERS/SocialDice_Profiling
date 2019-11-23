@@ -24,7 +24,6 @@ class Story(dict):
         self.author_id = storydict['author_id']
 
     def jsonify(self):
-
         self['id'] = self.id
         self['text'] = self.text
         self['dicenumber'] = self.dicenumber
@@ -42,8 +41,20 @@ class Stories(dict):
 
     def __init__(self, jpayload: json):
         super().__init__()
+        self.storylist = []
         stories = json.loads(str(jpayload, 'utf8'))
 
         for s in stories['stories']:
             story: Story = Story(s)
             self.storylist.append(story)
+
+    def jsonify(self):
+        ls: list = []
+
+        for s in self.storylist:
+            s: Story
+            ls.append(s.jsonify())
+
+        self['stories'] = ls
+
+        return self

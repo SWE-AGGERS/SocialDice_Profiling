@@ -14,7 +14,7 @@ def getStories(id:int):
     if req.status_code != 200:
         return None
 
-    stories: Stories = Stories(req.json())
+    stories: Stories = Stories(req.data)
 
     return stories
 
@@ -23,6 +23,6 @@ def getUser(id: int):
     req = requests.get(url=ENDPOINT_USER + str(id))
     if req.status_code != 200:
         raise UserException()
-    u: User = User(req.json())
+    u: User = User(req.data)
 
     return u
