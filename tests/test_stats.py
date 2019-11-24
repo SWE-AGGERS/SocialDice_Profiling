@@ -1,8 +1,9 @@
 import unittest
 
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
+class GlobalTestCase(unittest.TestCase):
+
+    def test_getstats_api(self):
         self.assertEqual(True, False)
 
 

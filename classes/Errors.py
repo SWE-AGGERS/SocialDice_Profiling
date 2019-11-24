@@ -1,11 +1,25 @@
 class UserException(Exception):
-    def __init__(self):
-        var = self.args
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
+
+class UserNonExistsError(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
 
 
 class StoriesException(Exception):
-    def __init__(self):
-        var = self.args
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
 
 
 class NoUser(dict):
