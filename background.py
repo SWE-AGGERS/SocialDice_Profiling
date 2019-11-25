@@ -15,7 +15,7 @@ celery = Celery(__name__, backend=BACKEND, broker=BROKER)
 _APP = None
 
 
-# @celery.task
+@celery.task
 def calc_stats_async(user_id):
     global _APP
     if _APP is None:

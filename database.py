@@ -30,7 +30,6 @@ class StatsTab(db.Model):
 
     def to_json(self):
         # stats_dict = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-        self
         stats_dict = {
             "user_id": self.user_id,
             "email": self.email,

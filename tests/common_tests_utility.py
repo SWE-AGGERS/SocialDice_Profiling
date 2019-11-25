@@ -33,8 +33,9 @@ def mocked_background_delay_ok(*args, **kwargs):
     else:
         _id = kwargs['uesr_id']
     calc_stats_async(_id)
-    sleep(5)
-    print()
+
+def mocked_background_delay_No_update(*args, **kwargs):
+    pass
 
 
 user1_json = {
