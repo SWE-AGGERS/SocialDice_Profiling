@@ -1,7 +1,9 @@
 import json
+from time import sleep
 
 from requests import Response
 
+from background import calc_stats_async
 from classes.Utils import ENDPOINT_USER, ENDPOINT_STORIES
 
 
@@ -23,6 +25,16 @@ def mocked_get_ok(*args, **kwargs):
     res.data = jpayload
 
     return res
+
+
+def mocked_background_delay_ok(*args, **kwargs):
+    if len(args) > 0:
+        _id = args[0]
+    else:
+        _id = kwargs['uesr_id']
+    calc_stats_async(_id)
+    sleep(5)
+    print()
 
 
 user1_json = {

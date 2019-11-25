@@ -10,10 +10,13 @@ stats = Blueprint('stats', __name__)
 @stats.route('/stats/<user_id>', methods=['GET'])
 def _get_stats(user_id):
     print('Get in local db,user`s stats with id ' + str(user_id))
+
+    # calc_stats_async.delay(user_id)
+    calc_stats_async(user_id)
+
     q = db.session.query(StatsTab).filter(StatsTab.user_id == user_id)
     stats_db: StatsTab = q.first()
 
-    calc_stats_async.delay(user_id)
 
     if not stats_db:
         try:
@@ -23,6 +26,7 @@ def _get_stats(user_id):
 
         return NoStats()
 
+    ret = stats_db
     return stats_db.to_json()
 
 

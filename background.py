@@ -1,7 +1,7 @@
 from celery import Celery
 from sqlalchemy.orm import scoped_session
 
-from classes.Errors import UserException
+from classes.Errors import UserException, ServiceUnreachable
 from database import db, StatsTab
 from sqlalchemy import and_
 
@@ -15,7 +15,7 @@ celery = Celery(__name__, backend=BACKEND, broker=BROKER)
 _APP = None
 
 
-@celery.task
+# @celery.task
 def calc_stats_async(user_id):
     global _APP
     if _APP is None:
@@ -30,6 +30,13 @@ def calc_stats_async(user_id):
             stats = Stats(user_id)
         except UserException:
             print('Try get Stats from unknown user wit id ' + str(user_id))
+            return
+        except ServiceUnreachable as e:
+            print(e)
+            return
+        except Exception as e:
+            print('Unexpected Exception')
+            print(e)
             return
 
         session = db.session

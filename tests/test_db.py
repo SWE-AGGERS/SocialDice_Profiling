@@ -39,6 +39,9 @@ class TestStatsDB(unittest.TestCase):
             self.assertIsNotNone(stats_check_mod)
             self.assertNotEqual('email@email.com', stats_check_mod.email)
 
+            stats = stats_check_mod.to_json()
+            print(stats)
+
     @mock.patch('requests.get', side_effect=mocked_get_ok)
     def test_Update(self, pippo):
         _app = create_app(debug=True)
@@ -55,23 +58,23 @@ class TestStatsDB(unittest.TestCase):
             self.assertEqual(user1_json['id'], stats_check.user_id)
             self.assertEqual(user1_json['email'], stats_check.email)
 
-    @mock.patch('requests.get', side_effect=mocked_get_ok)
-    def test_Update_Async(self, pippo):
-        _app = create_app(debug=True)
-        with _app.app_context():
-            db.drop_all()
-            db.create_all()
-
-            # task = calc_stats_async
-            # delay: AsyncResult = task.delay(user_id=user1_json['id'])
-            # get = delay.get(timeout=10)
-
-            calc_stats_async.delay(user_id=user1_json['id']).get(timeout=5)
-
-            # sleep(10.0)
-
-            session = db.session
-            stats_check: StatsTab = session.query(StatsTab).filter(StatsTab.user_id == user1_json['id']).first()
-            self.assertIsNotNone(stats_check)
-            self.assertEqual(user1_json['id'], stats_check.user_id)
-            self.assertEqual(user1_json['email'], stats_check.email)
+    # @mock.patch('requests.get', side_effect=mocked_get_ok)
+    # def test_Update_Async(self, pippo):
+    #     _app = create_app(debug=True)
+    #     with _app.app_context():
+    #         db.drop_all()
+    #         db.create_all()
+    #
+    #         # task = calc_stats_async
+    #         # delay: AsyncResult = task.delay(user_id=user1_json['id'])
+    #         # get = delay.get(timeout=10)
+    #
+    #         calc_stats_async.delay(user_id=user1_json['id']).get(timeout=5)
+    #
+    #         # sleep(10.0)
+    #
+    #         session = db.session
+    #         stats_check: StatsTab = session.query(StatsTab).filter(StatsTab.user_id == user1_json['id']).first()
+    #         self.assertIsNotNone(stats_check)
+    #         self.assertEqual(user1_json['id'], stats_check.user_id)
+    #         self.assertEqual(user1_json['email'], stats_check.email)
