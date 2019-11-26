@@ -1,10 +1,10 @@
 import unittest
 from unittest import mock
-from classes.Stats import Stats
-from classes.Stories import Stories, Story
-from classes.User import User
-from classes.Utils import ENDPOINT_USER, ENDPOINT_STORIES
-from tests.common_tests_utility import mocked_get_ok, user1_json, story_block1_json
+from stats_service.classes.Stats import Stats
+from stats_service.classes.Stories import Stories, Story
+from stats_service.classes.User import User
+from stats_service.classes.Utils import ENDPOINT_USER, ENDPOINT_STORIES
+from stats_service.tests.common_tests_utility import mocked_get_ok, user1_json, story_block1_json
 
 
 class StatsTestCase(unittest.TestCase):

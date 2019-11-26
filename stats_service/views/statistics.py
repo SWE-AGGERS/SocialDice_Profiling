@@ -1,8 +1,8 @@
 from flask import Blueprint
-from classes.Errors import NoStats, UserException, NoUser
-from classes.Utils import getUser
+from stats_service.classes.Errors import NoStats, UserException, NoUser
+from stats_service.classes.Utils import getUser
 from stats_service.database import StatsTab, db
-from background import calc_stats_async
+from stats_service.background import calc_stats_async
 
 stats = Blueprint('stats', __name__)
 

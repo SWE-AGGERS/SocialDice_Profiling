@@ -10,7 +10,7 @@ class User(dict):
     def __init__(self, jpayload: bytes):
         super().__init__()
         if jpayload is None:
-            self.id = 0
+            self.user_id = 0
             self.email = ""
             self.firstname = ""
             self.lastname = ""
@@ -22,7 +22,7 @@ class User(dict):
         self.lastname = userdict['lastname']
 
     def jsonify(self):
-        self['id'] = self.id
+        self['user_id'] = self.id
         self['email'] = self.email
         self['firstname'] = self.firstname
         self['lastname'] = self.lastname

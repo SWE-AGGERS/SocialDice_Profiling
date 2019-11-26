@@ -1,6 +1,6 @@
-from classes.Stories import Stories, Story
-from classes.User import User
-from classes.Utils import getUser, getStories
+from stats_service.classes.Stories import Stories, Story
+from stats_service.classes.User import User
+from stats_service.classes.Utils import getUser, getStories
 
 
 class Stats(dict):

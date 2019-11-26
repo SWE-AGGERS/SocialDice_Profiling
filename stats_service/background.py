@@ -1,9 +1,9 @@
 from celery import Celery
 
-from classes.Errors import UserException, ServiceUnreachable
+from stats_service.classes.Errors import UserException, ServiceUnreachable
 from stats_service.database import db, StatsTab
 
-from classes.Stats import Stats
+from stats_service.classes.Stats import Stats
 
 BACKEND = BROKER = 'redis://localhost:6380'
 # BACKEND = BROKER = 'redis://0.0.0.0:6380'

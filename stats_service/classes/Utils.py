@@ -1,8 +1,8 @@
 import requests
 
-from classes.Errors import UserException, StoriesException, ServiceUnreachable
-from classes.Stories import Stories
-from classes.User import User
+from stats_service.classes.Errors import UserException, StoriesException, ServiceUnreachable
+from stats_service.classes.Stories import Stories
+from stats_service.classes.User import User
 
 ENDPOINT_USER = 'http://0.0.0.0:5042/user/'
 
