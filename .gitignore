@@ -1,6 +1,0 @@
-/venv_profiling/
-/.idea
-.gitignore
-cpy_*
-/redis-stable/
-*.db

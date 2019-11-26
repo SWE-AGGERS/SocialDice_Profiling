@@ -1,0 +1,19 @@
+version: '3'
+services:
+  stats:
+    build: .
+    ports:
+      - "5000:5004"
+    volumes: # for bind volume
+      - '.:/code'
+    environment:
+      PYTHONUNBUFFERED: 'true'
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  celery:
+    build: .
+    command: celery worker -l error -E -A stats_service.background
+    volumes: # for bind volume
+      - '.:/code'

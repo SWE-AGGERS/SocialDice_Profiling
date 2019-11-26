@@ -1,9 +1,7 @@
 from celery import Celery
-from sqlalchemy.orm import scoped_session
 
 from classes.Errors import UserException, ServiceUnreachable
-from database import db, StatsTab
-from sqlalchemy import and_
+from stats_service.database import db, StatsTab
 
 from classes.Stats import Stats
 
@@ -19,7 +17,7 @@ _APP = None
 def calc_stats_async(user_id):
     global _APP
     if _APP is None:
-        from app import create_app
+        from stats_service.app import create_app
         app = create_app()
     else:
         app = _APP

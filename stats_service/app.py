@@ -1,7 +1,7 @@
 from flask import Flask
 
-from database import db
-from views import blueprints
+from stats_service.database import db
+from stats_service.views import blueprints
 
 
 def create_app(debug=False):

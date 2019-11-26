@@ -2,13 +2,11 @@ import json
 import unittest
 from unittest import mock
 
-from app import create_app
-from background import calc_stats_async
+from stats_service.app import create_app
 from classes.Errors import NoStats
-from database import db
+from stats_service.database import db
 from tests.common_tests_utility import mocked_get_ok, user1_json, mocked_background_delay_ok, \
     mocked_background_delay_No_update
-from views.statistics import _get_stats
 
 
 class GlobalTestCase(unittest.TestCase):
