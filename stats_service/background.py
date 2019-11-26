@@ -5,8 +5,8 @@ from stats_service.database import db, StatsTab
 
 from classes.Stats import Stats
 
-BACKEND = BROKER = 'redis://localhost:6379'
-# BACKEND = BROKER = 'redis://0.0.0.0:6379'
+BACKEND = BROKER = 'redis://localhost:6380'
+# BACKEND = BROKER = 'redis://0.0.0.0:6380'
 
 celery = Celery(__name__, backend=BACKEND, broker=BROKER)
 
