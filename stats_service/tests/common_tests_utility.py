@@ -3,8 +3,8 @@ from time import sleep
 
 from requests import Response
 
-from background import calc_stats_async
-from classes.Utils import ENDPOINT_USER, ENDPOINT_STORIES
+from stats_service.background import calc_stats_async
+from stats_service.classes.Utils import ENDPOINT_USER, ENDPOINT_STORIES
 
 
 def mocked_get_ok(*args, **kwargs):

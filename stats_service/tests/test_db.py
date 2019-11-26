@@ -2,9 +2,9 @@ from sqlalchemy.orm import scoped_session
 from stats_service.app import create_app
 import unittest
 import mock
-from background import calc_stats_async
+from stats_service.background import calc_stats_async
 from stats_service.database import db, StatsTab
-from tests.common_tests_utility import mocked_get_ok, user1_json
+from stats_service.tests.common_tests_utility import mocked_get_ok, user1_json
 
 
 class TestStatsDB(unittest.TestCase):

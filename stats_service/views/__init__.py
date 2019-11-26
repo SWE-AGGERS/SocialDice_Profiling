@@ -1,3 +1,3 @@
-from stats_service.views import stats
+from stats_service.views.statistics import stats
 
 blueprints = [stats]
