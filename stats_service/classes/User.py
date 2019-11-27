@@ -7,7 +7,7 @@ class User(dict):
     firstname: str
     lastname: str
 
-    def __init__(self, jpayload: bytes):
+    def __init__(self, jpayload):
         super().__init__()
         if jpayload is None:
             self.user_id = 0
@@ -15,8 +15,8 @@ class User(dict):
             self.firstname = ""
             self.lastname = ""
             return
-        userdict = json.loads(str(jpayload, 'utf8'))
-        self.id = userdict['id']
+        userdict = jpayload
+        self.id = userdict['user_id']
         self.email = userdict['email']
         self.firstname = userdict['firstname']
         self.lastname = userdict['lastname']

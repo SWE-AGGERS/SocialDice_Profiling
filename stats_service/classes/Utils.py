@@ -4,16 +4,13 @@ from stats_service.classes.Errors import UserException, StoriesException, Servic
 from stats_service.classes.Stories import Stories
 from stats_service.classes.User import User
 
-ENDPOINT_USER = 'http://0.0.0.0:5042/user/'
-
-ENDPOINT_STORIES = 'http://0.0.0.0:5042/stories/'
+from stats_service.constants import USER_URL, STORIES_URL
 
 
-
-def getStories(id:int):
-    print('Send request to ' + ENDPOINT_STORIES + ' to update story list')
+def getStories(story_id:int):
+    print('Send request to ' + STORIES_URL + ' to update story list')
     try:
-        req = requests.get(url=ENDPOINT_STORIES+str(id), timeout=3)
+        req = requests.get(url=STORIES_URL+str(story_id), timeout=3)
         print('HTTP.GET executed')
     except TimeoutError:
         print('HTTP.GET FAIL!!!')
@@ -28,10 +25,10 @@ def getStories(id:int):
     return stories
 
 
-def getUser(id: int):
-    print('Send request to ' + ENDPOINT_USER + ' to get user details')
+def getUser(user_id: int):
+    print('Send request to ' + USER_URL + ' to get user details')
     try:
-        req = requests.get(url=ENDPOINT_USER + str(id), timeout=3)
+        req = requests.get(USER_URL + str(user_id), timeout=3)
         print('HTTP.GET executed')
     except TimeoutError:
         print('HTTP.GET FAIL!!!')
@@ -39,6 +36,6 @@ def getUser(id: int):
 
     if req.status_code != 200:
         raise UserException('Get user fail with code:' + str(req.status_code))
-    u: User = User(req.data)
+    u: User = User(req.json())
 
     return u
